@@ -1,4 +1,4 @@
-package com.example.firstspring;
+package com.example.firstspring.app;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

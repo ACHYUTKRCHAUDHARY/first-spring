@@ -1,4 +1,4 @@
-package com.example.firstspring.model;
+package com.example.firstspring.app.model;
 
 public class User {
     private int id;
