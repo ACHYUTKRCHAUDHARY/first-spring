@@ -13,3 +13,5 @@ postman/browser -> tomcat -> dispatcherServlet -> handlerMapping -> controller -
 ResponseEntity = HttpResponse +Status Codes HttpStatus
 
 in the database decided the
+
+pathvariable annotation is used when we have to take the input from the url

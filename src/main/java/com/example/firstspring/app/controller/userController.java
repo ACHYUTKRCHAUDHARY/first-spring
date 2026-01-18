@@ -25,9 +25,11 @@ public class userController {
     
 
     @PutMapping
-    public String updateUser(@RequestBody User user) {
-        if(userDb.containsKey(user.getId()))  userDb.put(user.getId(), user);
-        return "update successful";
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        if(!userDb.containsKey(user.getId())) {
+            userDb.put(user.getId(), user);
+            return ResponseEntity.notFound().build();
+        } else return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -39,5 +41,34 @@ public class userController {
     @GetMapping
     public List<User> getUsers(){
         return new ArrayList<>(userDb.values());
+    }
+
+//first way
+//    @GetMapping("/{id}")
+//    public ResponseEntity<User> getOrder(@PathVariable int id){
+//        return ResponseEntity.ok(userDb.get(id));
+//    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getOrder(@PathVariable("userId") int id){
+        return ResponseEntity.ok(userDb.get(id));
+    }
+
+//    multiple path urls
+    @GetMapping("/{userId}/orders/{orderId}")
+    public ResponseEntity<User> getOrder(
+            @PathVariable("userId") int id,
+            @PathVariable int orderId
+    ){
+        if(!userDb.containsKey(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        }
+        return ResponseEntity.ok(userDb.get(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsers(@RequestParam String search){
+
     }
 }
